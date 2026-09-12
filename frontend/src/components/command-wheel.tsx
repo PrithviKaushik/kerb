@@ -29,9 +29,9 @@ export function CommandWheel({
 
   return (
     <div
-      className={`${fixed ? "fixed" : "absolute"} left-1/2 z-20`}
+      className={`${fixed ? "fixed top-0" : "absolute"} left-1/2 z-20`}
       style={{
-        top: open ? "50%" : 10,
+        top: fixed && !open ? 0 : open ? "50%" : 10,
         transform: open
           ? "translate(-50%, -50%) scale(1)"
           : "translate(-50%, 0) scale(0.42)",
