@@ -1,5 +1,5 @@
 # Supplied footage (never commit media)
-data/
+data/raw/
 *.mp4
 *.mkv
 *.mov
