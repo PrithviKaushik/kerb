@@ -1,26 +1,79 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Barlow Condensed", "Inter", ui-sans-serif, sans-serif;
+  --font-heading: "Barlow Condensed", "Inter", ui-sans-serif, sans-serif;
+  --font-mono-tech: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+
+  --color-kerb-red: hsl(var(--kerb-red));
+  --color-kerb-white: hsl(var(--kerb-white));
+  --color-kerb-charcoal: #0e0f13;
+}
+
+/* KERB evidence-kit tokens (HSL triplets for hsl(var(--x) / <alpha>) use) */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --kerb-bg: 0 0% 2%;
+  --kerb-red: 3 100% 45%;
+  --kerb-red-deep: 3 85% 28%;
+  --kerb-white: 45 18% 96%;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.kerb-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-weight: 600;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.kerb-atmosphere {
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 40%, rgba(225, 6, 0, 0.09), transparent 70%),
+    radial-gradient(ellipse 90% 70% at 50% 110%, rgba(255, 255, 255, 0.04), transparent 60%);
+}
+
+.kerb-red-glow {
+  box-shadow:
+    0 0 24px rgba(225, 6, 0, 0.35),
+    0 0 64px rgba(225, 6, 0, 0.12);
+}
+
+html,
+body {
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #000;
+  color: #fff;
+}
+
+::selection {
+  background: #e10600;
+  color: #fff;
+}
+
+@keyframes kerb-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-rise {
+  animation: kerb-rise 0.45s ease both;
+}
+
+/* slow mechanical rotation for the rim assembly only */
+@keyframes kerb-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.kerb-spin-slow {
+  animation: kerb-spin 48s linear infinite;
 }
