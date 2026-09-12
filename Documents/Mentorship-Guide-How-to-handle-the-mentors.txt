@@ -1,0 +1,186 @@
+Use this document whenever advice regarding mentorship or per-round deliverables is asked:
+
+**Mentorship Guide**  
+*Use the mentors. Don’t just perform for them.*
+
+---
+
+### Core Mindset
+
+Round 1 and Round 2 exist to make the product better in the next 16 hours.
+
+Being remembered is a side-effect of being clear, specific, and responsive.  
+Confidence comes from having already reasoned through the hard parts — it is not the same as refusing to update your mind.
+
+Treat every mentoring session as the highest-bandwidth debugging resource available.  
+Defend positions you have already thought through. Change positions that turn out to be weaker than you believed.
+
+---
+
+### Technical Position (use this, don’t force it)
+
+**Primary line:**
+
+> “Most systems try to answer: *Was this a violation?*  
+> Kerb answers a more useful question:  
+> *Here is the evidence, here is how much we trust it, and here is where the camera cannot support a reliable four-tire decision.*  
+> The steward always stays in control.”
+
+Supporting concrete language:
+- Contact-region hierarchy (Level 1 → Level 2 proxy → UNCERTAIN)
+- Sporting rule vs 3-of-5 reliability filter
+- Explicit refusal to invent invisible tires
+- Structured evidence package that always ends with **STEWARD REVIEW REQUIRED**
+
+These phrases signal maturity. Use them when they fit the conversation, not as slogans.
+
+---
+
+### Round 1 (5:00–6:30 PM today) — 7–10 minutes
+
+**Goal:**  
+Show that the foundation is real and the direction is deliberate. Leave with usable feedback.
+
+#### 6-Slide Structure
+
+1. **Title + Positioning**  
+   Kerb – Evidence-grade steward assistant (not an automatic referee)
+
+2. **Problem & Our Reading**  
+   Organizer requirements mapped to engineering interpretation
+
+3. **System Architecture**  
+   Clean pipeline: Video → YOLO → ByteTrack → Contact Approximation → Boundary → 4-Outside Rule → Temporal Filter → Trust → Evidence
+
+4. **Key Technical Decisions**  
+   Contact hierarchy + Temporal rule + simple UML-style relationships  
+   Safety rule highlighted: never treat unobservable as outside
+
+5. **Differentiation + Intended Demo Cases**  
+   Positioning line + four cases (clean / clear candidate / near-line / uncertain)
+
+6. **Current Status + What We Want Feedback On**  
+   Honest progress + specific open questions
+
+#### Conversation Beats (flexible order)
+
+Hit these in whatever sequence the conversation allows:
+
+- Clear positioning (helper, not referee)
+- Architecture and why the layers are separated
+- Contact hierarchy and the UNCERTAIN path
+- Temporal filter as reliability mechanism, not sporting rule
+- The four intended demo cases
+- Current real status (what actually runs right now)
+- Genuine open questions (do not leave these only for the end)
+
+**Strong open questions (prepare 1–2):**
+- “Where do you see the biggest risk in the contact approximation approach?”
+- “Does treating uncertainty as a first-class output feel correct for a steward tool?”
+- “Any strong view on majority window versus consecutive frames for the reliability filter?”
+- “What would make this evidence package actually useful under real time pressure?”
+
+#### Defend vs Act-On Rule (critical)
+
+| Type | Signal | Response |
+|------|--------|----------|
+| **Defend** | Mentor questions a deliberate, already-reasoned tradeoff | Calmly restate the reasoning. Use prepared logic. |
+| **Act on** | Mentor surfaces a real gap, better framing, missing failure mode, or practical weakness | Acknowledge it. Write it down. Say “That’s useful — we’ll take that into the overnight work.” |
+
+When a locked decision is challenged:
+1. Briefly restate why it was locked.
+2. Ask one clarifying question.
+3. If their point is stronger → unlock it and note the change.
+4. If not → hold the line cleanly and move on.
+
+Do not default to pure defense.  
+Do not collapse into agreement on everything.
+
+**Approximations:**  
+Defend deliberate MVP scoping choices without apology.  
+If a mentor flags an actual gap in reasoning, the correct move is “You’re right, let us fix that.”
+
+#### Feedback Capture
+One person writes exact phrases where possible.  
+Immediately after the session (5–10 min):
+- Must act on before Round 2
+- Nice to have
+- Disagree / park
+
+---
+
+### Overnight Priority
+
+1. Everything marked “must act on”
+2. Complete the vertical slice (full P0)
+3. Four demo cases working
+4. Evidence package + pre-rendered fallback
+5. Polish
+
+---
+
+### Round 2 (09:00–10:30 AM) — 10 minutes
+
+**Goal:**  
+Show you listened and the product moved. Get final high-value input before the noon freeze.
+
+#### Opening (choose the true version)
+
+**If feedback was clear and attributable:**
+> “Yesterday you raised [specific point]. Here’s exactly what we changed and what it looks like now.”
+
+**If feedback was vague, mixed, or light:**
+> “We took the discussion on [topic] and pushed harder on [specific improvement]. Here’s the current state of the MVP.”
+
+Do not invent a clean narrative that isn’t true.
+
+#### Structure
+- Short, honest mapping of what changed (or what was hardened)
+- Demo the strongest cases (include the uncertain case)
+- Point at the concrete improvements
+- One or two focused questions for final advice
+- Stop and listen
+
+---
+
+### Demonstration Tips (both rounds)
+
+- A real running pipeline (even rough) beats perfect slides.
+- When showing the Uncertain case, frame it as discipline: “This is the system correctly refusing to guess.”
+- If live inference is risky, use pre-rendered evidence packages and state it cleanly.
+- Speak slightly slower than feels natural. Precision > speed.
+- If interrupted, answer the question, then return to the nearest useful beat. There is no need to finish a script.
+
+---
+
+### FAQ Anchors (for reasoned defense)
+
+- **Four tires:** Hierarchy + explicit UNCERTAIN. We never invent.
+- **Bounding box:** Useful for tracking, invalid as tire locations. Used only as Level-2 proxy and labelled approximate.
+- **3-of-5:** Reliability filter only. Sporting rule remains all-four-outside.
+- **Penalties:** Never. Every output ends with STEWARD REVIEW REQUIRED.
+- **Scope:** Single-camera vertical slice by design. Generalization is future work.
+
+---
+
+### Pre-Round 1 Checklist
+
+- [ ] 6 slides ready and visually clear
+- [ ] Positioning line and key technical phrases internalized (not memorized as a speech)
+- [ ] One person assigned as feedback scribe
+- [ ] Team aligned on the Defend vs Act-On rule
+- [ ] 1–2 genuine open questions prepared
+- [ ] Basic pipeline or clean evidence views ready to show
+- [ ] 5–10 min post-session feedback sorting planned
+
+---
+
+**Final Principle**
+
+Walk in clear and specific.  
+Use the mentors as the best debugging tool you will get.  
+Defend what you have already reasoned through.  
+Change what turns out to be weaker.  
+Then show the difference in Round 2.
+
+That combination produces both a better product and a team people actually remember.

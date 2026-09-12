@@ -1,0 +1,19 @@
+# Supplied footage (never commit media)
+data/
+*.mp4
+*.mkv
+*.mov
+*.avi
+*.webm
+
+# Python / venv
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+
+# Models / output artifacts
+*.pt
+runs/
+output/
+*.log
