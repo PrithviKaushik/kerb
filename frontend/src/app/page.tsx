@@ -10,7 +10,9 @@ export default function Home() {
   return (
     <VideoStage glass={glass}>
       {/* hint */}
-      
+      <p className="absolute top-6 right-6 z-10 text-[15px] font-medium tracking-[0.32em] text-white/40 uppercase">
+        {glass ? "Tap hub to dock" : " Preserve the curve "}
+      </p>
       <p className="absolute top-6 left-6 z-10 hidden font-display text-5xl font-semibold tracking-[0.4em] text-white/40 sm:block">
         KERB<span className="text-[#e10600]">.</span>
       </p>
@@ -24,14 +26,11 @@ export default function Home() {
         }`}
       >
         <div className="pointer-events-auto max-w-3xl px-5 pt-28 text-center">
-          <p className="py-2 text-40px font-semibold tracking-[0.45em] text-[#ff3b4d] uppercase">
-            Kerb 
-          </p>
-          <p className="py-2 text-20px font-semibold tracking-[0.45em] text-[#ff3b4d] uppercase">
-            Race Intelligence, Built for Stewards
+          <p className="py-2 text-lg font-semibold tracking-[0.45em] text-[#ff3b4d] uppercase">
+            Kerb · Preserve the Curve
           </p>
           <p className="text-xs font-semibold tracking-[0.32em] text-[#ffffff] uppercase">
-            Stewards Support System
+            F1 Track-Limit Intelligence
           </p>
           <h1 className="mt-4 font-display text-6xl leading-[0.95] font-semibold tracking-wide uppercase sm:text-8xl">
             Every millimetre
