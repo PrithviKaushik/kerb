@@ -17,3 +17,28 @@ __pycache__/
 runs/
 output/
 *.log
+# KERB generated video artifacts
+data/raw/
+data/audit/frames/
+data/audit/contact_sheets/
+data/api/
+
+# Video files
+*.mp4
+*.mkv
+*.mov
+*.avi
+
+# Extracted image frames
+*.png
+*.jpg
+*.jpeg
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Environment
+.env
