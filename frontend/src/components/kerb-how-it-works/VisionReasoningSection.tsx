@@ -68,7 +68,12 @@ export default function VisionReasoningSection() {
   );
 }
 
-function FlowBlock({ label, highlight }) {
+interface FlowBlockProps {
+  label: string;
+  highlight?: boolean;
+}
+
+function FlowBlock({ label, highlight = false }: FlowBlockProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

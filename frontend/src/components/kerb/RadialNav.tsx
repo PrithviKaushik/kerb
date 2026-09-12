@@ -9,7 +9,7 @@ import { CommandWheel } from "../command-wheel";
  * dimming the page behind it in glass. `active` lights the current
  * section — sector taps route to their pages.
  */
-export default function RadialNav({ active }: { active?: string }) {
+export default function RadialNav({ active, local = false }: { active?: string; local?: boolean }) {
   const [glass, setGlass] = useState(false);
 
   return (
@@ -20,7 +20,7 @@ export default function RadialNav({ active }: { active?: string }) {
           glass ? "bg-black/35 opacity-100 backdrop-blur-xl" : "pointer-events-none opacity-0"
         }`}
       />
-      <CommandWheel fixed activeId={active} onOpenChange={setGlass} />
+      <CommandWheel fixed={!local} local={local} activeId={active} onOpenChange={setGlass} />
     </>
   );
 }

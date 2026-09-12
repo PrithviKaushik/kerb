@@ -101,7 +101,12 @@ export default function PerceptionSection() {
   );
 }
 
-function FlowStep({ label, sub }) {
+interface FlowStepProps {
+  label: string;
+  sub: string;
+}
+
+function FlowStep({ label, sub }: FlowStepProps) {
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}

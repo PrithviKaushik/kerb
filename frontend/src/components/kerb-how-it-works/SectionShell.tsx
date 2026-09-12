@@ -3,7 +3,17 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utlis";
 import TechnicalLabel, { HudCoord } from "./TechnicalLabel";
 
-const SectionShell = forwardRef(function SectionShell(
+interface SectionShellProps {
+  id?: string;
+  label?: string;
+  title?: string;
+  children: React.ReactNode;
+  className?: string;
+  hudX?: string;
+  hudY?: string;
+}
+
+const SectionShell = forwardRef<HTMLElement, SectionShellProps>(function SectionShell(
   { id, label, title, children, className, hudX = "124.2", hudY = "88.1" },
   ref
 ) {

@@ -4,7 +4,7 @@ import SectionShell from "./SectionShell";
 import { TRUST_FACTORS } from "./data/kerbPipeline";
 
 export default function TrustSection() {
-  const [hovered, setHovered] = useState(null);
+  const [hovered, setHovered] = useState<number | null>(null);
   const total = TRUST_FACTORS.reduce((a, f) => a + f.value, 0);
 
   return (
@@ -78,7 +78,12 @@ export default function TrustSection() {
   );
 }
 
-function TrustMeter({ value, label }) {
+interface TrustMeterProps {
+  value: number;
+  label: string;
+}
+
+function TrustMeter({ value, label }: TrustMeterProps) {
   const r = 90;
   const circ = 2 * Math.PI * r;
   const offset = circ - (value / 100) * circ;

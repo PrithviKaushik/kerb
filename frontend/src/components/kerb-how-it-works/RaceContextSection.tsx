@@ -72,7 +72,23 @@ export default function RaceContextSection() {
   );
 }
 
-function Panel({ title, tag, children }) {
+interface PanelProps {
+  title: string;
+  tag: string;
+  children: React.ReactNode;
+}
+
+interface BarProps {
+  label: string;
+  value: number;
+}
+
+interface CarDotProps {
+  n: string;
+  active?: boolean;
+}
+
+function Panel({ title, tag, children }: PanelProps) {
   return (
     <div className="bg-kerb-black p-6">
       <div className="mb-5 flex items-center justify-between">
@@ -84,7 +100,7 @@ function Panel({ title, tag, children }) {
   );
 }
 
-function Bar({ label, value }) {
+function Bar({ label, value }: BarProps) {
   return (
     <div>
       <div className="flex justify-between font-mono text-[10px] tracking-[0.15em] text-kerb-muted uppercase">
@@ -98,7 +114,7 @@ function Bar({ label, value }) {
   );
 }
 
-function CarDot({ n, active }) {
+function CarDot({ n, active = false }: CarDotProps) {
   return (
     <div className="flex items-center gap-2 border border-kerb-tech px-3 py-2">
       <span className={`h-2 w-2 ${active ? "bg-kerb-red" : "bg-kerb-muted"}`} />

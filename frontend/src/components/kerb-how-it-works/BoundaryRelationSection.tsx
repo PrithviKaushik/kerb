@@ -75,7 +75,15 @@ function BoundaryDiagram() {
   );
 }
 
-function Dot({ x, y, label, red }) {
+interface DotProps {
+  x: number;
+  y: number;
+  state: string;
+  label: string;
+  red?: boolean;
+}
+
+function Dot({ x, y, label, red }: DotProps) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0 }}

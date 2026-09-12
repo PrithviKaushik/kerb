@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import TechnicalLabel from "./TechnicalLabel";
 
 // Simplified circuit path (a stylized corner-rich circuit)
@@ -8,17 +8,9 @@ const TRACK_PATH =
 
 export default function HeroSection() {
   const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const fade = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
     <section ref={ref} className="relative min-h-screen w-full overflow-hidden bg-kerb-black">
-      {/* Active scan line */}
-      <motion.div
-        style={{ opacity: fade }}
-        className="pointer-events-none absolute left-0 right-0 top-1/2 z-10 h-px bg-kerb-red/30"
-      />
-
       {/* Grid backdrop */}
       <div
         className="absolute inset-0 opacity-[0.15]"
@@ -132,7 +124,16 @@ function TrackViz() {
   );
 }
 
-function HudTag({ top, left, right, bottom, lines, accent }) {
+interface HudTagProps {
+  top?: string;
+  left?: string;
+  right?: string;
+  bottom?: string;
+  lines: string[];
+  accent?: boolean;
+}
+
+function HudTag({ top, left, right, bottom, lines, accent = false }: HudTagProps) {
   return (
     <div
       className="absolute font-mono text-[10px] tracking-[0.15em] uppercase"

@@ -25,8 +25,8 @@ export default function KerbHowItWorksPage() {
   };
 
   return (
-    <main className="min-h-screen w-full bg-kerb-black text-kerb-white antialiased selection:bg-kerb-red selection:text-kerb-white">
-      <RadialNav active="how-it-works" />
+    <main className="relative min-h-screen w-full bg-kerb-black text-kerb-white antialiased selection:bg-kerb-red selection:text-kerb-white">
+      <RadialNav active="how-it-works" local />
       <HeroSection />
       <ProblemSection />
       <PipelineSection />

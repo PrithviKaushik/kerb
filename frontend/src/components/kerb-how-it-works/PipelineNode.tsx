@@ -2,7 +2,19 @@ import React from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utlis";
 
-export default function PipelineNode({ stage, index, active, complete }) {
+interface PipelineStage {
+  label: string;
+  desc: string;
+}
+
+interface PipelineNodeProps {
+  stage: PipelineStage;
+  index: number;
+  active?: boolean;
+  complete?: boolean;
+}
+
+export default function PipelineNode({ stage, index, active = false, complete = false }: PipelineNodeProps) {
   return (
     <div className="group relative">
       <div

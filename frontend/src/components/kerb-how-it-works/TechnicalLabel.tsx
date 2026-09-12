@@ -1,7 +1,19 @@
 import React from "react";
 import { cn } from "@/lib/utlis";
 
-export default function TechnicalLabel({ children, className, accent = false }) {
+interface TechnicalLabelProps {
+  children: React.ReactNode;
+  className?: string;
+  accent?: boolean;
+}
+
+interface HudCoordProps {
+  x: string;
+  y: string;
+  className?: string;
+}
+
+export default function TechnicalLabel({ children, className, accent = false }: TechnicalLabelProps) {
   return (
     <span
       className={cn(
@@ -16,7 +28,7 @@ export default function TechnicalLabel({ children, className, accent = false }) 
   );
 }
 
-export function HudCoord({ x, y, className }) {
+export function HudCoord({ x, y, className }: HudCoordProps) {
   return (
     <span className={cn("font-mono text-[10px] tracking-tighter text-kerb-muted/70", className)}>
       [X: {x} · Y: {y}]

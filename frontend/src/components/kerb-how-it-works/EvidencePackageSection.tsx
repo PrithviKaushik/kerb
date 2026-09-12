@@ -102,7 +102,13 @@ export default function EvidencePackageSection() {
   );
 }
 
-function Field({ k, v, red }) {
+interface FieldProps {
+  k: string;
+  v: string;
+  red?: boolean;
+}
+
+function Field({ k, v, red = false }: FieldProps) {
   return (
     <div className="bg-kerb-black px-5 py-4">
       <p className="font-mono text-[10px] tracking-[0.2em] text-kerb-muted uppercase">{k}</p>
