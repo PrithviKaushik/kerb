@@ -1,0 +1,22 @@
+[project]
+name = "kerb"
+version = "0.1.0"
+description = "Kerb perception workstream"
+requires-python = ">=3.14,<3.15"
+dependencies = [
+    "torch",
+    "torchvision",
+    "ultralytics==8.4.99",
+]
+
+[tool.uv]
+package = false
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+torchvision = { index = "pytorch-cpu" }

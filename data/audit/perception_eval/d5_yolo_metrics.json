@@ -1,0 +1,30 @@
+{
+  "source_directory": "data/audit/perception_eval/d5",
+  "annotated_directory": "data/audit/perception_eval/d5_yolo",
+  "model": "yolo11n.pt",
+  "device": "cpu",
+  "imgsz": 640,
+  "conf_threshold": 0.25,
+  "frames_processed": 24,
+  "frames_with_at_least_one_car": 20,
+  "car_frame_detection_rate": 0.8333333333333334,
+  "total_car_detections": 36,
+  "car_class_id": 2,
+  "car_class_name": "car",
+  "confidence": {
+    "count": 36,
+    "mean": 0.358811487754186,
+    "min": 0.25068941712379456,
+    "max": 0.5756255388259888
+  },
+  "elapsed_s": 4.014819118998275,
+  "processing_fps": 5.977853369889342,
+  "detections_per_frame": {
+    "min": 0,
+    "max": 3,
+    "mean": 1.5,
+    "frames_with_0": 4,
+    "frames_with_1": 7,
+    "frames_with_2_or_more": 13
+  }
+}
