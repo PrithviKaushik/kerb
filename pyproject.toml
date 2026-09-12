@@ -7,6 +7,7 @@ dependencies = [
     "torch",
     "torchvision",
     "ultralytics==8.4.99",
+    "lap>=0.5.12",
 ]
 
 [tool.uv]
