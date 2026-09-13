@@ -26,6 +26,7 @@ from backend.api.providers.real import (
     A5_VIDEO,
     RealA5AnalysisProvider,
 )
+from backend.api.timeline import aggregate_spatial_timeline
 from backend.reports.repository import repository
 from backend.skills.geometry.geometry import (
     BoundaryConfig,
@@ -181,6 +182,12 @@ def demo_tracks() -> list[dict]:
 @router.get("/spatial")
 def demo_spatial() -> list[dict]:
     return _read_jsonl(A5_SPATIAL)
+
+
+@router.get("/timeline")
+def demo_timeline() -> dict:
+    """Return measured spatial transitions for each A5 tracked vehicle."""
+    return {"tracks": aggregate_spatial_timeline(_read_jsonl(A5_SPATIAL))}
 
 
 @router.get("/boundary")

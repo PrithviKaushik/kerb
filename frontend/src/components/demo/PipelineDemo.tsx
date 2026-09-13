@@ -9,6 +9,7 @@ import { StateTimeline } from "./StateTimeline";
 import { IncidentCard, type KerbIncident } from "./IncidentCard";
 import { SessionsPanel } from "./SessionsPanel";
 import { BoundaryCalibrator } from "./BoundaryCalibrator";
+import { IncidentTimeline, type SpatialTrackTimeline } from "./IncidentTimeline";
 
 type SpatialRow = {
   frame_index: number;
@@ -55,6 +56,8 @@ type DemoState = {
   calibration_keyframes?: number[];
 };
 
+type TimelineResponse = { tracks: SpatialTrackTimeline[] };
+
 type SessionJob = {
   state: string;
   progress?: number | null;
@@ -82,6 +85,7 @@ export function PipelineDemo() {
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [state, setState] = useState<DemoState | null>(null);
   const [spatial, setSpatial] = useState<SpatialRow[] | null>(null);
+  const [timeline, setTimeline] = useState<SpatialTrackTimeline[] | null>(null);
   const [sessionJob, setSessionJob] = useState<SessionJob | null>(null);
   const [refreshTick, setRefreshTick] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -92,12 +96,13 @@ export function PipelineDemo() {
     const request = Promise.all([
       apiRequest<DemoState>("/api/demo/state"),
       apiRequest<SpatialRow[]>("/api/demo/spatial"),
+      apiRequest<TimelineResponse>("/api/demo/timeline"),
     ]);
     const timeout = new Promise<never>((_, reject) => {
       window.setTimeout(() => reject(new Error("Demo API did not respond within 15 seconds")), 15000);
     });
-    const [demoState, demoSpatial] = await Promise.race([request, timeout]);
-    return { demoState, demoSpatial };
+    const [demoState, demoSpatial, demoTimeline] = await Promise.race([request, timeout]);
+    return { demoState, demoSpatial, demoTimeline: demoTimeline.tracks };
   }, []);
 
   const load = useCallback(
@@ -107,7 +112,7 @@ export function PipelineDemo() {
         apiRequest<DemoState>(`/api/sessions/${id}`),
         apiRequest<SpatialRow[]>(`/api/sessions/${id}/spatial`).catch(() => null),
       ]);
-      return { demoState: sessionState, demoSpatial: sessionSpatial };
+      return { demoState: sessionState, demoSpatial: sessionSpatial, demoTimeline: null };
     },
     [fetchDemo]
   );
@@ -119,6 +124,7 @@ export function PipelineDemo() {
         if (cancelled) return;
         setState(res.demoState);
         setSpatial(res.demoSpatial);
+        setTimeline(res.demoTimeline);
         setSessionJob(res.demoState.job ?? null);
         setError(null);
       })
@@ -158,6 +164,7 @@ export function PipelineDemo() {
       const res = await load(sessionId);
       setState(res.demoState);
       setSpatial(res.demoSpatial);
+      setTimeline(res.demoTimeline);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load pipeline");
     } finally {
@@ -168,6 +175,7 @@ export function PipelineDemo() {
   const selectSession = useCallback((id: string | null) => {
     setSessionId(id);
     setSpatial(null);
+    setTimeline(null);
     setSessionJob(null);
     setError(null);
   }, []);
@@ -447,6 +455,7 @@ export function PipelineDemo() {
               </p>
             )}
             {spatial && spatial.length > 0 && <div className="mt-2"><StateTimeline rows={spatial} /></div>}
+            {timeline && timeline.length > 0 && <div className="mt-5"><IncidentTimeline tracks={timeline} /></div>}
           </div>
         ) : (
           <>
@@ -476,6 +485,7 @@ export function PipelineDemo() {
               </div>
             </div>
             {spatial && <div className="mt-4"><StateTimeline rows={spatial} /></div>}
+            {timeline && timeline.length > 0 && <div className="mt-5"><IncidentTimeline tracks={timeline} /></div>}
           </>
         )}
       </PipelineStage>
