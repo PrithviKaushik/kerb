@@ -21,7 +21,7 @@ export default function DemoPage() {
         <header className="mt-10 mb-8">
           <p className="kerb-eyebrow">Live pipeline · every skill in order</p>
           <h1 className="mt-2 font-display text-5xl font-semibold uppercase tracking-[0.16em] sm:text-6xl">
-            The A5 <span className="text-kerb-red">Track-Limit</span> Demo
+            The <span className="text-kerb-red">Track-Limit</span> Demo
           </h1>
           <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-white/60">
             One real race clip flows through the full Kerb skill chain — frame extraction,
