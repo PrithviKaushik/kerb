@@ -11,6 +11,7 @@ from backend.skills.video.frame_extraction import (
     probe_video,
 )
 from backend.api.routes.analysis import router as analysis_router
+from backend.api.routes.demo import router as demo_router
 from backend.api.routes.incidents import router as incidents_router
 from backend.api.routes.reports import router as reports_router
 
@@ -32,6 +33,7 @@ Path("data/api/frames").mkdir(parents=True, exist_ok=True)
 app.mount("/api/video/frames", StaticFiles(directory="data/api/frames"), name="extracted-frames")
 
 app.include_router(analysis_router)
+app.include_router(demo_router)
 app.include_router(incidents_router)
 app.include_router(reports_router)
 

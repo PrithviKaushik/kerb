@@ -55,4 +55,4 @@ def evaluate_four_outside(
 
     # Defensive fallback. The states are an enum, so this should
     # normally never be reached.
-    return None, IncidentState.UNCERTAINz
+    return None, IncidentState.UNCERTAIN

@@ -1,0 +1,21 @@
+{
+  "camera_name": "a5_demo",
+  "camera_view": "a5_fixed_camera_view_1",
+  "zone_id": "a5_kerb_zone_1",
+  "fixed_camera_horizontal_fallback": true,
+  "boundary": {
+    "type": "polyline",
+    "points": [],
+    "note": "SINGLE calibrated MVP camera/view/zone boundary. MANUAL INPUT REQUIRED: fill boundary.points with pixel coordinates [[x1,y1],[x2,y2],...] read from data/audit/geometry/a5_kerb_boundary/a5_frame_075.png (2304x1440). Polyline must be ordered from first to last point, consistent with inside_side. Points are NOT inventable automatically; do not infer them from pixels. This config is reused for ALL footage from this camera/view/zone; it is NOT per-video.",
+    "inside_side": "right_of_direction"
+  },
+  "geometry": {
+    "history_window": 5,
+    "minimum_displacement_pixels": 2.0,
+    "minimum_box_width": 20.0,
+    "minimum_box_height": 20.0,
+    "minimum_detector_confidence": 0.25,
+    "lower_box_fraction": 0.5,
+    "boundary_touch_tolerance_pixels": 2.0
+  }
+}

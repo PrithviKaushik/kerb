@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { CommandWheel } from "@/components/command-wheel";
 import { VideoStage } from "@/components/video-stage";
 
@@ -38,6 +39,20 @@ export default function Home() {
             <br />
             <span className="text-[#ff2e43]">under race control</span>
           </h1>
+          <div className="mt-8 flex items-center justify-center gap-4">
+            <Link
+              href="/demo"
+              className="rounded-lg bg-[#ff2e43] px-6 py-3 text-xs font-bold uppercase tracking-[0.24em] text-white transition hover:brightness-110"
+            >
+              Run the live demo →
+            </Link>
+            <Link
+              href="/how-it-works"
+              className="rounded-lg border border-white/20 px-6 py-3 text-xs font-bold uppercase tracking-[0.24em] text-white/80 transition hover:border-white/50"
+            >
+              How it works
+            </Link>
+          </div>
         </div>
       </section>
 
