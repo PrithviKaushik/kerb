@@ -67,7 +67,7 @@ export default function ProblemSection() {
 
           <div className="mt-8 grid grid-cols-3 gap-px border border-kerb-tech bg-kerb-tech">
             {[
-              { k: "FRAMES / RACE", v: "~86,000" },
+              { k: "FRAMES / RACE", v: "~294,300" },
               { k: "INSPECTED EQUALLY", v: "IMPOSSIBLE" },
               { k: "KERB CANDIDATES", v: "PRIORITIZED" },
             ].map((s) => (

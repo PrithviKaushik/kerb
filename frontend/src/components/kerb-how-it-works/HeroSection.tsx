@@ -21,7 +21,7 @@ export default function HeroSection() {
         }}
       />
 
-      <div className="relative z-20 mx-auto flex min-h-screen max-w-[1400px] flex-col justify-center px-6 py-24 md:px-16">
+      <div className="relative z-20 mx-auto flex min-h-screen max-w-[1400px] flex-col justify-start px-6 py-24 md:px-16 md:py-28">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -114,10 +114,10 @@ function TrackViz() {
       </svg>
 
       {/* Telemetry HUD overlays */}
-      <div className="pointer-events-none absolute inset-0">
-        <HudTag top="18%" left="6%" lines={["TRACK 05", "FRAME 01842"]} />
+      <div className="pointer-events-none absolute inset-0 hidden md:block">
+        <HudTag top="10%" right="18%" lines={["TRACK 05", "FRAME 01842"]} />
         <HudTag top="24%" right="6%" lines={["ID 16", "SPEED 214 KM/H"]} />
-        <HudTag bottom="20%" left="8%" lines={["BOUNDARY +0.12M", "ANALYSIS ACTIVE"]} accent />
+        <HudTag bottom="12%" right="30%" lines={["BOUNDARY +0.12M", "ANALYSIS ACTIVE"]} accent />
         <HudTag bottom="16%" right="7%" lines={["STATUS", "TRACKING LOCKED"]} />
       </div>
     </div>
