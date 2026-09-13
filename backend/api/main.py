@@ -3,17 +3,37 @@ import shutil
 import tempfile
 
 from fastapi import FastAPI, File, Form, UploadFile
+from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 
 from backend.skills.video.frame_extraction import (
     extract_frames,
     probe_video,
 )
+from backend.api.routes.analysis import router as analysis_router
+from backend.api.routes.incidents import router as incidents_router
+from backend.api.routes.reports import router as reports_router
 
 app = FastAPI(
     title="KERB Backend API",
     description="Race video processing backend for KERB.",
     version="0.1.0",
 )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+Path("data/api/frames").mkdir(parents=True, exist_ok=True)
+app.mount("/api/video/frames", StaticFiles(directory="data/api/frames"), name="extracted-frames")
+
+app.include_router(analysis_router)
+app.include_router(incidents_router)
+app.include_router(reports_router)
 
 
 @app.get("/api/health")
@@ -99,6 +119,10 @@ async def extract_frames_api(
             "frames_extracted": len(result.frames),
             "resolution": result.resolution,
             "output_directory": str(output_dir),
+            "frame_urls": [
+                f"/api/video/frames/{output_name}/{Path(frame).name}"
+                for frame in result.frames
+            ],
             "status": "success",
         }
     finally:

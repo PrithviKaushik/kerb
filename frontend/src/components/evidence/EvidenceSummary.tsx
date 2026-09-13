@@ -17,8 +17,9 @@ export default function EvidenceSummary() {
       </h2>
 
       <p className="mt-6 max-w-xl text-sm leading-relaxed text-white/55 sm:text-base">
-        A race can produce thousands of frames. KERB isolates the moments that
-        require attention and presents the relevant visual context for review.
+        KERB does not present a gallery of race cars. It presents the visual
+        evidence behind an AI-surfaced observation: what was seen, what remains
+        unknown, and why a steward should review it.
       </p>
 
       <div className="mt-12 flex flex-wrap items-center gap-x-3 gap-y-3 font-mono-tech text-[11px] tracking-[0.2em] text-white/50">

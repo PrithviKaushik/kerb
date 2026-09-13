@@ -16,8 +16,9 @@ export default function EvidenceIntro() {
       </h1>
 
       <p className="mt-7 max-w-xl text-sm leading-relaxed text-white/55 sm:text-base">
-        KERB isolates critical moments from race footage and transforms them
-        into reviewable track-limit evidence.
+        Visual evidence behind an AI-surfaced racing incident. Follow the
+        vehicle, the boundary relation, the supporting observations, and the
+        uncertainty before making a human steward decision.
       </p>
     </section>
   );

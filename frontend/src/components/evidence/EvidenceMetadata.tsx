@@ -9,6 +9,9 @@ interface EvidenceMetadataItem {
   timestamp?: string | number | null;
   measurement?: string | number | null;
   status?: string | null;
+  state?: string | null;
+  trustScore?: number | null;
+  trustBand?: string | null;
 }
 
 interface FieldProps {
@@ -43,6 +46,11 @@ export default function EvidenceMetadata({
       <Field label="TURN" value={item.turn} />
       <Field label="TIME" value={item.timestamp} />
       <Field label="DELTA" value={item.measurement} />
+
+      <Field label="AI" value={item.state} />
+      {item.trustScore != null && (
+        <Field label="TRUST" value={`${item.trustScore} · ${item.trustBand ?? ""}`} />
+      )}
 
       {item.status && (
         <span className="ml-1 rounded-full border border-kerb-red/40 bg-kerb-red/10 px-3 py-1 text-[10px] tracking-[0.2em] text-kerb-red">

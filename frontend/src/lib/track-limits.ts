@@ -1,4 +1,4 @@
-import { Gauge, Settings, Video, type LucideIcon } from "lucide-react";
+import { Activity, BookOpen, FileText, Gauge, ListChecks, Settings, Video, type LucideIcon } from "lucide-react";
 
 export type Sector = {
   id: string;
@@ -29,10 +29,40 @@ export const SECTORS: Sector[] = [
     description:
       "Frame-accurate case files for every breach — video, position and ruling, sealed together.",
   },
+  {
+    id: "knowledge",
+    label: "KNOWLEDGE",
+    code: "SEC-04",
+    description:
+      "The explicit rules governing contact, boundary, temporal support, uncertainty and steward review.",
+  },
+  {
+    id: "reports",
+    label: "REPORTS",
+    code: "SEC-05",
+    description:
+      "Historical incident records preserving evidence, AI assessment and the steward's final review.",
+  },
+  {
+    id: "analysis",
+    label: "ANALYSIS",
+    code: "SEC-06",
+    description: "Run race footage through the KERB intelligence pipeline and inspect its returned candidates.",
+  },
+  {
+    id: "incidents",
+    label: "INCIDENTS",
+    code: "SEC-07",
+    description: "Prioritized evidence-backed incidents waiting for steward attention.",
+  },
 ];
 
 export const SECTOR_ICONS: Record<string, LucideIcon> = {
   system: Settings,
   "how-it-works": Gauge,
   evidence: Video,
+  knowledge: BookOpen,
+  reports: FileText,
+  analysis: Activity,
+  incidents: ListChecks,
 };

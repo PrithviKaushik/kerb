@@ -3,6 +3,7 @@ import RadialNav from "@/components/kerb/RadialNav";
 import EvidenceIntro from "@/components/evidence/EvidenceIntro";
 import EvidenceCircuit from "@/components/evidence/EvidenceCircuit";
 import EvidenceSummary from "@/components/evidence/EvidenceSummary";
+import LiveEvidenceSummary from "@/components/evidence/LiveEvidenceSummary";
 import { EVIDENCE_ITEMS } from "@/data/evidence";
 
 export default function Evidence() {
@@ -15,6 +16,8 @@ export default function Evidence() {
       <EvidenceCircuit
         items={EVIDENCE_ITEMS}
       />
+
+      <LiveEvidenceSummary />
 
       <EvidenceSummary />
     </main>
