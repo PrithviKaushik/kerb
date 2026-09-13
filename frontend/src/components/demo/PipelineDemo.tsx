@@ -146,9 +146,13 @@ export function PipelineDemo() {
 
   const stages = state.stages ?? [];
   const byId = (id: string) => stages.find((s) => s.id === id);
+  const artifactUrl = (stageId: string, kind: string) =>
+    byId(stageId)?.artifacts?.find((a) => a.kind === kind)?.url;
   const keyframes = byId("extraction")?.artifacts?.[0]?.urls ?? [];
   const trackIds = state.track_ids ?? [];
   const incident = state.incident ?? null;
+  const perceptionSrc = artifactUrl("perception", "video") ?? "/api/demo/perception/video";
+  const surfaceSrc = artifactUrl("surface", "video") ?? "/api/demo/surface/video";
 
   return (
     <div className="space-y-6">
@@ -188,7 +192,7 @@ export function PipelineDemo() {
 
       <PipelineStage index={2} title="Perception — YOLO + ByteTrack" skill="backend.skills.perception.tracking">
         <div className="grid gap-4 lg:grid-cols-2">
-          <video src={apiUrl("/api/demo/perception/video")} controls muted playsInline className="w-full rounded-lg border border-white/10" />
+          <video src={apiUrl(perceptionSrc)} controls muted playsInline className="w-full rounded-lg border border-white/10" />
           <div className="space-y-3">
             {(byId("perception")?.artifacts ?? []).map((artifact) =>
               artifact.data ? (
@@ -263,7 +267,7 @@ export function PipelineDemo() {
         states={state.spatial_state_counts}
       >
         <div className="grid gap-4 lg:grid-cols-2">
-          <video src={apiUrl("/api/demo/surface/video")} controls muted playsInline className="w-full rounded-lg border border-white/10" />
+          <video src={apiUrl(surfaceSrc)} controls muted playsInline className="w-full rounded-lg border border-white/10" />
           <div className="flex flex-col justify-between gap-3">
             <div className="flex flex-wrap gap-1.5">
               {Object.entries(state.spatial_state_counts ?? {}).map(([s, c]) => (
