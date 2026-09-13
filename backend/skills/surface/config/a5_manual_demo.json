@@ -1,0 +1,43 @@
+{
+  "camera_name": "a5_demo",
+  "camera_view": "a5_fixed_camera_view_1",
+  "zone_id": "a5_kerb_zone_1",
+  "note": "Demo runtime config. The legal/off-track split is provided by the MANUALLY CALIBRATED boundary (data/audit/surface/a5_manual_boundary.json), NOT by this file. Full-frame ROI so the whole bbox is always evaluated against the boundary.",
+  "roi": {
+    "x1": 0.0,
+    "y1": 0.0,
+    "x2": 1.0,
+    "y2": 1.0
+  },
+  "appearance": {
+    "white_min_value": 200,
+    "white_max_saturation": 40,
+    "dark_max_value": 45,
+    "grass_hue_min": 30,
+    "grass_hue_max": 95,
+    "grass_min_saturation": 60,
+    "grass_min_value": 40,
+    "color_sat_unknown_min": 100
+  },
+  "morphology": {
+    "transition_dilation_kernel": 21,
+    "green_close_kernel": 5,
+    "green_open_kernel": 5
+  },
+  "metrics": {
+    "weight_known": 0.4,
+    "weight_separation": 0.3,
+    "weight_continuity": 0.2,
+    "weight_temporal": 0.1,
+    "usable_known_fraction": 0.5
+  },
+  "classifier": {
+    "minimum_box_width": 20.0,
+    "minimum_box_height": 20.0,
+    "min_surface_confidence": 0.4,
+    "min_known_fraction": 0.5,
+    "inside_track_share": 0.85,
+    "outside_track_share": 0.15,
+    "min_dominant_fraction": 0.5
+  }
+}
