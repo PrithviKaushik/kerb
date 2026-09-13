@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { CommandWheel } from "@/components/command-wheel";
 import { VideoStage } from "@/components/video-stage";
-import OverviewLivePanel from "@/components/overview/OverviewLivePanel";
+
 
 export default function Home() {
   const [glass, setGlass] = useState(false);
@@ -40,7 +40,7 @@ export default function Home() {
           </h1>
         </div>
       </section>
-      <OverviewLivePanel />
+
     </VideoStage>
   );
 }
