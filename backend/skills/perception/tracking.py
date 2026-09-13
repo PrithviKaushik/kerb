@@ -5,7 +5,7 @@ import json
 import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 import cv2
 from ultralytics import YOLO
@@ -84,8 +84,13 @@ def track_video(
     *,
     imgsz: int = 640,
     conf: float = 0.25,
+    progress: Callable[[int, int], None] | None = None,
 ) -> TrackingMetrics:
-    """Track class-0 vehicles through a video with Ultralytics ByteTrack."""
+    """Track class-0 vehicles through a video with Ultralytics ByteTrack.
+
+    ``progress(frame_index, total_frames)`` is invoked per frame so callers can
+    surface inference progress without coupling to Ultralytics internals.
+    """
 
     source_path = Path(source)
     model_file = Path(model_path)
@@ -101,6 +106,7 @@ def track_video(
     source_fps = capture.get(cv2.CAP_PROP_FPS)
     width = int(capture.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    total_frames = int(capture.get(cv2.CAP_PROP_FRAME_COUNT) or 0)
     if source_fps <= 0 or width <= 0 or height <= 0:
         capture.release()
         raise RuntimeError("Source video metadata is invalid")
@@ -180,6 +186,8 @@ def track_video(
 
                 writer.write(annotated)
                 frame_index += 1
+                if progress is not None:
+                    progress(frame_index, total_frames)
     finally:
         capture.release()
         writer.release()

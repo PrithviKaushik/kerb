@@ -6,7 +6,7 @@ import math
 from collections import defaultdict, deque
 from dataclasses import dataclass, asdict
 from pathlib import Path
-from typing import Iterable
+from typing import Callable, Iterable
 
 
 @dataclass(frozen=True)
@@ -230,14 +230,15 @@ def geometry_record(
 def process_records(
     records: Iterable[dict],
     config: GeometryConfig,
-    boundary: BoundaryConfig,
+    boundary: BoundaryConfig | Callable[[int], BoundaryConfig],
 ) -> list[dict]:
     histories: dict[int, deque[Position]] = defaultdict(
         lambda: deque(maxlen=config.history_window)
     )
     output = []
     for record in records:
-        output.append(geometry_record(record, histories[int(record["track_id"])], config, boundary))
+        frame_boundary = boundary(int(record["frame_index"])) if callable(boundary) else boundary
+        output.append(geometry_record(record, histories[int(record["track_id"])], config, frame_boundary))
     return output
 
 

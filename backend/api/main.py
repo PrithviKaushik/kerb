@@ -10,10 +10,12 @@ from backend.skills.video.frame_extraction import (
     extract_frames,
     probe_video,
 )
+from backend.api.sessions import ensure_root as ensure_sessions_root
 from backend.api.routes.analysis import router as analysis_router
 from backend.api.routes.demo import router as demo_router
 from backend.api.routes.incidents import router as incidents_router
 from backend.api.routes.reports import router as reports_router
+from backend.api.routes.sessions import router as sessions_router
 
 app = FastAPI(
     title="KERB Backend API",
@@ -30,12 +32,14 @@ app.add_middleware(
 )
 
 Path("data/api/frames").mkdir(parents=True, exist_ok=True)
+ensure_sessions_root()
 app.mount("/api/video/frames", StaticFiles(directory="data/api/frames"), name="extracted-frames")
 
 app.include_router(analysis_router)
 app.include_router(demo_router)
 app.include_router(incidents_router)
 app.include_router(reports_router)
+app.include_router(sessions_router)
 
 
 @app.get("/api/health")

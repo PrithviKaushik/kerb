@@ -22,6 +22,7 @@ data/raw/
 data/audit/frames/
 data/audit/contact_sheets/
 data/api/
+data/sessions/
 
 # Video files
 *.mp4

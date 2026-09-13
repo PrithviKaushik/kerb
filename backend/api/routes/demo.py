@@ -14,12 +14,12 @@ nothing is synthesized at request time except the cheap geometry pass.
 from __future__ import annotations
 
 import json
-import subprocess
 from pathlib import Path
 
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import FileResponse
 
+from backend.api.media import browser_playable, cached_video_uri
 from backend.api.providers.real import (
     A5_SPATIAL,
     A5_TRACKS,
@@ -47,66 +47,6 @@ BOUNDARY_JSON = _REPO_ROOT / "data/audit/surface/a5_manual_boundary.json"
 GEOMETRY_CONFIG = _REPO_ROOT / "backend/skills/geometry/config/a5_demo_boundary.json"
 
 INCIDENT_ID = "A5-KERB-0001"
-
-
-def _browser_playable(src: Path) -> Path:
-    """Return an MP4 the browser can actually decode.
-
-    The pipeline renders MPEG-4 Part 2 (OpenCV mp4v), which Chrome/Firefox
-    refuse to play in <video>. Re-mux to H.264/yuv420p once, next to the
-    source, and reuse that copy on later requests.
-    """
-    browser_path = src.with_name(src.stem + ".browser.mp4")
-    if browser_path.is_file():
-        return browser_path
-    if not src.is_file():
-        return src
-    try:
-        subprocess.run(
-            [
-                "ffmpeg",
-                "-y",
-                "-i",
-                str(src),
-                "-vsync",
-                "cfr",
-                "-r",
-                "30",
-                "-an",
-                "-c:v",
-                "libopenh264",
-                "-pix_fmt",
-                "yuv420p",
-                "-b:v",
-                "6M",
-                "-maxrate",
-                "8M",
-                "-bufsize",
-                "16M",
-                "-movflags",
-                "+faststart",
-                str(browser_path),
-            ],
-            check=True,
-            capture_output=True,
-        )
-    except (FileNotFoundError, subprocess.CalledProcessError):
-        return src
-    return browser_path
-
-
-def _cached_video_uri(route: str, src: Path) -> str | None:
-    """API path for a demo clip, cache-busted by the playable file's mtime.
-
-    The browser may have cached an earlier (pre-transcode, unplayable) response
-    for the same path; embedding the mtime forces a fresh fetch whenever the
-    file changes.
-    """
-    if not src.is_file():
-        return None
-    playable = _browser_playable(src)
-    stamp = int(playable.stat().st_mtime)
-    return f"/api/demo/{route}/video?m={stamp}"
 
 
 router = APIRouter(prefix="/api/demo", tags=["Demo"])
@@ -173,8 +113,8 @@ def demo_state() -> dict:
 
     spatial_counts = Counter(rec.get("spatial_state") for rec in spatial)
     track_ids = sorted({rec["track_id"] for rec in tracks})
-    video_uri = _cached_video_uri("perception", TRACKING_VIDEO)
-    surface_uri = _cached_video_uri("surface", SURFACE_DIR / "a5_manual_visualization.mp4")
+    video_uri = cached_video_uri("/api/demo/perception/video", TRACKING_VIDEO)
+    surface_uri = cached_video_uri("/api/demo/surface/video", SURFACE_DIR / "a5_manual_visualization.mp4")
 
     return {
         "video": {"name": "a5.mp4", "exists": A5_VIDEO.is_file(), "frames": metrics.get("video_frames")},
@@ -270,7 +210,7 @@ def demo_perception_video() -> FileResponse:
     if not TRACKING_VIDEO.is_file():
         raise HTTPException(status_code=404, detail="Tracking video not found")
     return FileResponse(
-        _browser_playable(TRACKING_VIDEO),
+        browser_playable(TRACKING_VIDEO),
         media_type="video/mp4",
         headers={"Cache-Control": "no-cache"},
     )
@@ -282,7 +222,7 @@ def demo_surface_video() -> FileResponse:
     if not video.is_file():
         raise HTTPException(status_code=404, detail="Surface visualization not found")
     return FileResponse(
-        _browser_playable(video),
+        browser_playable(video),
         media_type="video/mp4",
         headers={"Cache-Control": "no-cache"},
     )
