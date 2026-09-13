@@ -1,14 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import React from "react";
 import SectionShell from "./SectionShell";
 
 export default function RaceContextSection() {
-  const [t, setT] = useState(0);
-  useEffect(() => {
-    const interval = setInterval(() => setT((v) => (v + 1) % 100), 80);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <SectionShell
       id="race-context"
@@ -20,21 +13,9 @@ export default function RaceContextSection() {
           <p className="font-mono text-sm tracking-[0.15em] text-kerb-white">CAR #16</p>
           <p className="mt-1 font-mono text-sm tracking-[0.15em] text-kerb-muted">TURN 5</p>
           <p className="mt-1 font-mono text-sm tracking-[0.15em] text-kerb-red">CORNER EXIT</p>
-          <div className="mt-6 aspect-video w-full border border-kerb-tech bg-gradient-to-br from-[#1a1a1a] to-kerb-black">
-            <div className="flex h-full items-center justify-center">
-              <div className="h-3 w-16 rounded bg-kerb-red/70" />
-            </div>
-          </div>
-        </Panel>
-
-        <Panel title="TELEMETRY" tag="LIVE">
-          <div className="flex items-baseline gap-2">
-            <span className="font-display text-4xl font-bold text-kerb-white">214</span>
-            <span className="font-mono text-[11px] tracking-[0.15em] text-kerb-muted uppercase">KM/H</span>
-          </div>
-          <div className="mt-4 space-y-2">
-            <Bar label="BRAKING" value={t % 100} />
-            <Bar label="THROTTLE" value={72} />
+          <div className="relative mt-6 aspect-video w-full overflow-hidden border border-kerb-tech bg-kerb-black">
+            <span className="absolute inset-0 flex items-center justify-center font-mono text-[9px] tracking-[0.12em] text-kerb-white/30 uppercase">ASSET NOT PROVIDED</span>
+            <video src="/how-it-works-assets/56.mp4" autoPlay loop muted playsInline preload="auto" className="relative h-full w-full object-contain" aria-label="Annotated race context result" onError={(event) => { event.currentTarget.style.display = "none"; }} />
           </div>
         </Panel>
 
@@ -49,25 +30,6 @@ export default function RaceContextSection() {
         </Panel>
       </div>
 
-      {/* Synchronized timeline cursor */}
-      <div className="relative mt-8 h-16 border border-kerb-tech bg-kerb-near-black">
-        <div className="absolute left-0 right-0 top-1/2 h-px -translate-y-1/2 bg-kerb-tech" />
-        {[0, 25, 50, 75, 100].map((p) => (
-          <div key={p} className="absolute top-1/2 h-2 w-px -translate-y-1/2 bg-kerb-muted/50" style={{ left: `${p}%` }} />
-        ))}
-        <motion.div
-          className="absolute top-0 bottom-0 w-px bg-kerb-red"
-          style={{ left: `${t}%` }}
-        >
-          <span className="absolute -top-5 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[9px] tracking-[0.15em] text-kerb-red uppercase">
-            T = 01:24.320
-          </span>
-          <span className="absolute -bottom-1 left-1/2 h-2 w-2 -translate-x-1/2 bg-kerb-red" />
-        </motion.div>
-        <span className="absolute bottom-1 left-3 font-mono text-[9px] tracking-[0.15em] text-kerb-muted uppercase">
-          SYNCHRONIZED TIMELINE
-        </span>
-      </div>
     </SectionShell>
   );
 }
@@ -76,11 +38,6 @@ interface PanelProps {
   title: string;
   tag: string;
   children: React.ReactNode;
-}
-
-interface BarProps {
-  label: string;
-  value: number;
 }
 
 interface CarDotProps {
@@ -96,20 +53,6 @@ function Panel({ title, tag, children }: PanelProps) {
         <span className="font-mono text-[10px] tracking-[0.2em] text-kerb-red uppercase">{tag}</span>
       </div>
       {children}
-    </div>
-  );
-}
-
-function Bar({ label, value }: BarProps) {
-  return (
-    <div>
-      <div className="flex justify-between font-mono text-[10px] tracking-[0.15em] text-kerb-muted uppercase">
-        <span>{label}</span>
-        <span className="text-kerb-white">{Math.round(value)}%</span>
-      </div>
-      <div className="mt-1 h-[3px] w-full bg-kerb-tech">
-        <div className="h-full bg-kerb-red" style={{ width: `${value}%` }} />
-      </div>
     </div>
   );
 }

@@ -1,4 +1,6 @@
 import React from "react";
+/* Supplied boundary media is intentionally rendered as a raw public asset. */
+/* eslint-disable @next/next/no-img-element */
 import { motion } from "framer-motion";
 import SectionShell from "./SectionShell";
 
@@ -50,57 +52,11 @@ export default function BoundaryRelationSection() {
 
 function BoundaryDiagram() {
   return (
-    <div className="relative aspect-square w-full border border-kerb-tech bg-kerb-near-black">
-      {/* Track surface */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0c0c0c] to-kerb-black" />
-      {/* Legal boundary line */}
-      <div className="absolute left-0 right-0 top-1/2 h-px bg-kerb-white" />
-      <span className="absolute left-3 top-1/2 -translate-y-6 font-mono text-[9px] tracking-[0.15em] text-kerb-white/70 uppercase">
-        LEGAL BOUNDARY
-      </span>
-      <span className="absolute left-3 top-1/2 translate-y-2 font-mono text-[9px] tracking-[0.15em] text-kerb-muted uppercase">
-        OUTSIDE
-      </span>
-
-      {/* Contact regions at various positions */}
-      <Dot x={22} y={38} state="INSIDE" label="INSIDE" />
-      <Dot x={42} y={50} state="ON LINE" label="ON LINE" />
-      <Dot x={64} y={62} state="OUTSIDE" label="OUTSIDE" red />
-      <Dot x={82} y={40} state="UNCERTAIN" label="UNCERTAIN" />
-
-      <div className="absolute bottom-4 left-4 font-mono text-[10px] tracking-[0.15em] text-kerb-muted uppercase">
-        BOUNDARY RELATION
-      </div>
+    <div className="relative aspect-square w-full overflow-hidden border border-kerb-tech bg-kerb-near-black">
+      <span className="absolute inset-0 flex items-center justify-center font-mono text-[9px] tracking-[0.12em] text-kerb-white/30 uppercase">ASSET NOT PROVIDED</span>
+      <img src="/how-it-works-assets/br.jpeg" alt="Supplied boundary relation visual" className="relative h-full w-full object-cover" onError={(event) => { event.currentTarget.style.display = "none"; }} />
+      <div className="absolute bottom-4 left-4 bg-black/75 px-2 py-1 font-mono text-[10px] tracking-[0.15em] text-kerb-white/70 uppercase">BOUNDARY RELATION · SUPPLIED FRAME</div>
     </div>
   );
 }
 
-interface DotProps {
-  x: number;
-  y: number;
-  state: string;
-  label: string;
-  red?: boolean;
-}
-
-function Dot({ x, y, label, red }: DotProps) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
-      transition={{ type: "spring", stiffness: 200 }}
-      className="group absolute -translate-x-1/2 -translate-y-1/2"
-      style={{ left: `${x}%`, top: `${y}%` }}
-    >
-      <span
-        className={`block h-4 w-4 rounded-full ${
-          red ? "bg-kerb-red shadow-[0_0_20px_rgba(225,6,0,0.6)]" : "bg-kerb-white"
-        }`}
-      />
-      <span className="absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap font-mono text-[9px] tracking-[0.15em] text-kerb-muted uppercase">
-        {label}
-      </span>
-    </motion.div>
-  );
-}

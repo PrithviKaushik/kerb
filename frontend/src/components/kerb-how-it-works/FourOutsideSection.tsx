@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+/* Supplied rule visuals are intentionally rendered as raw public assets. */
+/* eslint-disable @next/next/no-img-element */
 import { motion, AnimatePresence } from "framer-motion";
 import SectionShell from "./SectionShell";
 
@@ -53,52 +55,10 @@ export default function FourOutsideSection() {
       </p>
 
       <div className="mt-16 grid gap-12 md:grid-cols-[1.2fr_1fr] md:gap-20">
-        <div className="relative aspect-video w-full border border-kerb-tech bg-kerb-near-black">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0c0c0c] to-kerb-black" />
-          {/* Legal boundary */}
-          <div className="absolute left-0 right-0 top-1/2 h-px bg-kerb-white" />
-          <span className="absolute left-3 top-1/2 -translate-y-6 font-mono text-[9px] tracking-[0.15em] text-kerb-white/70 uppercase">
-            LEGAL BOUNDARY
-          </span>
-
-          {/* Car body */}
-          <div className="absolute left-1/2 top-1/2 h-16 w-32 -translate-x-1/2 -translate-y-1/2">
-            <div className="h-full w-full rounded bg-[#1f1f1f]" />
-          </div>
-
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={state.key}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-              className="absolute inset-0"
-            >
-              {state.contacts.map((c) => (
-                <div
-                  key={c.label}
-                  className="absolute -translate-x-1/2 -translate-y-1/2"
-                  style={{ left: `${c.x}%`, top: `${c.y}%` }}
-                >
-                  <span
-                    className={`block h-5 w-5 rounded-full ${
-                      c.state === "OUTSIDE"
-                        ? "bg-kerb-red shadow-[0_0_24px_rgba(225,6,0,0.7)]"
-                        : "bg-kerb-white ring-2 ring-kerb-red"
-                    }`}
-                  />
-                  <span className="absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap font-mono text-[9px] tracking-[0.15em] text-kerb-muted uppercase">
-                    {c.label} · {c.state}
-                  </span>
-                </div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
-
-          <div className="absolute bottom-4 left-4 font-mono text-[10px] tracking-[0.15em] text-kerb-muted uppercase">
-            STATE {state.key} · CONTACT REGIONS
-          </div>
+          <div className="relative aspect-video w-full overflow-hidden border border-kerb-tech bg-kerb-near-black">
+            <span className="absolute inset-0 flex items-center justify-center font-mono text-[9px] tracking-[0.12em] text-kerb-white/30 uppercase">ASSET NOT PROVIDED</span>
+            <img src={state.key === "A" ? "/how-it-works-assets/partial.jpg" : "/how-it-works-assets/full.jpg"} alt={state.key === "A" ? "Partial four-outside rule visual" : "Full four-outside rule visual"} className="relative h-full w-full object-cover" onError={(event) => { event.currentTarget.style.display = "none"; }} />
+            <div className="absolute bottom-4 left-4 bg-black/75 px-2 py-1 font-mono text-[10px] tracking-[0.15em] text-kerb-white/70 uppercase">STATE {state.key} · SUPPLIED FRAME</div>
         </div>
 
         <div className="flex flex-col justify-center">

@@ -1,20 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React from "react";
+/* Supplied media is intentionally rendered as raw assets from public/how-it-works-assets. */
+/* eslint-disable @next/next/no-img-element */
+import { motion } from "framer-motion";
 import SectionShell from "./SectionShell";
 
 const FRAMES = [
-  { id: "01840", x: 38, y: 42, w: 26, h: 30 },
-  { id: "01841", x: 40, y: 44, w: 26, h: 30 },
-  { id: "01842", x: 42, y: 46, w: 26, h: 30 },
+  { id: "PRE", src: "/how-it-works-assets/perception-frame-01.jpg" },
+  { id: "EVENT", src: "/how-it-works-assets/perception-frame-02.jpg" },
+  { id: "POST", src: "/how-it-works-assets/perception-frame-03.jpg" },
 ];
 
 export default function PerceptionSection() {
-  const [frame, setFrame] = useState(0);
-  useEffect(() => {
-    const t = setInterval(() => setFrame((f) => (f + 1) % FRAMES.length), 1400);
-    return () => clearInterval(t);
-  }, []);
-
   return (
     <SectionShell
       id="perception"
@@ -46,54 +42,13 @@ export default function PerceptionSection() {
 
         <div>
           <div className="relative aspect-video w-full overflow-hidden border border-kerb-tech bg-kerb-near-black">
-            {/* Mock race frame */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] via-kerb-black to-[#0f0f0f]" />
-            <div className="absolute inset-0 opacity-30" style={{ backgroundImage: "radial-gradient(circle at 50% 60%, #242424 0%, transparent 70%)" }} />
-
-            {/* Car silhouette */}
-            <div className="absolute left-1/2 top-1/2 h-12 w-24 -translate-x-1/2 -translate-y-1/2">
-              <div className="h-full w-full rounded-[3px] bg-kerb-red/80 shadow-[0_0_30px_rgba(225,6,0,0.4)]" />
-              <div className="absolute -top-1 left-1/2 h-3 w-10 -translate-x-1/2 rounded-t-full bg-kerb-red/60" />
-            </div>
-
-            {/* Bounding box */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={frame}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="absolute border border-kerb-white"
-                style={{
-                  left: `${FRAMES[frame].x}%`,
-                  top: `${FRAMES[frame].y}%`,
-                  width: `${FRAMES[frame].w}%`,
-                  height: `${FRAMES[frame].h}%`,
-                }}
-              >
-                <span className="absolute -top-5 left-0 whitespace-nowrap bg-kerb-white px-1.5 py-0.5 font-mono text-[9px] tracking-tighter text-kerb-black">
-                  CAR #16 · ID 16 · 0.94
-                </span>
-                <span className="absolute -top-1 -left-1 h-2 w-2 border-l border-t border-kerb-white" />
-                <span className="absolute -top-1 -right-1 h-2 w-2 border-r border-t border-kerb-white" />
-                <span className="absolute -bottom-1 -left-1 h-2 w-2 border-l border-b border-kerb-white" />
-                <span className="absolute -bottom-1 -right-1 h-2 w-2 border-r border-b border-kerb-white" />
-              </motion.div>
-            </AnimatePresence>
-
-            <div className="absolute bottom-3 left-3 font-mono text-[10px] tracking-[0.15em] text-kerb-muted uppercase">
-              FRAME {FRAMES[frame].id}
-            </div>
+            <span className="absolute inset-0 flex items-center justify-center font-mono text-[10px] tracking-[0.15em] text-kerb-white/35 uppercase">ASSET NOT PROVIDED</span>
+            <video src="/how-it-works-assets/57.mp4" autoPlay loop muted playsInline preload="auto" className="relative h-full w-full object-contain" aria-label="Supplied vehicle perception video" onError={(event) => { event.currentTarget.style.display = "none"; }} />
+            <span className="absolute top-3 left-3 pointer-events-none bg-black/70 px-2 py-1 font-mono text-[9px] tracking-[0.15em] text-kerb-red uppercase">VEHICLE PERCEPTION · SUPPLIED VIDEO</span>
           </div>
 
-          <div className="mt-3 flex gap-1.5">
-            {FRAMES.map((f, i) => (
-              <div
-                key={f.id}
-                className={`h-1 flex-1 ${i === frame ? "bg-kerb-red" : "bg-kerb-tech"}`}
-              />
-            ))}
+          <div className="mt-3 grid grid-cols-3 gap-2">
+            {FRAMES.map((frame) => <div key={frame.id} className="relative aspect-video overflow-hidden border border-kerb-tech bg-kerb-near-black"><span className="absolute inset-0 flex items-center justify-center font-mono text-[8px] tracking-[0.1em] text-kerb-white/30">ASSET NOT PROVIDED</span><img src={frame.src} alt={`Perception ${frame.id} supplied frame`} className="relative h-full w-full object-cover" onError={(event) => { event.currentTarget.style.display = "none"; }} /><span className="absolute bottom-2 left-2 bg-black/75 px-1.5 py-0.5 font-mono text-[8px] text-kerb-white/70">{frame.id}</span></div>)}
           </div>
         </div>
       </div>
