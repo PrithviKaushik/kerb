@@ -8,7 +8,7 @@ and it never issues penalties. Every output is a reviewable candidate
 (`NO_VIOLATION`, `VIOLATION_CANDIDATE`, or `UNCERTAIN`) surfaced for human
 stewards, who make the final sporting decision.
 
-> **Authors:** Waqar Akhtar · Prithvi Kaushik
+> **Authors:** Prithvi Kaushik · Waqar Akhtar 
 >
 > **Built for:** TrackShift 2026 · Plaksha University
 
