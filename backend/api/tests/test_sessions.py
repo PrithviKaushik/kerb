@@ -98,7 +98,7 @@ class SessionStoreTests(unittest.TestCase):
             width=1920,
             height=1080,
             calibration_frame_index=50,
-            model="kerb_yolo11n_plus_d3.pt",
+            model="kerb_yolo11n_plus_d3_and_a5.pt",
             status={"perception": "done", "incident": "pending"},
         )
         meta = store.SessionMeta(**{**defaults, **overrides})

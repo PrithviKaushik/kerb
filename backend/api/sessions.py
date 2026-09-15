@@ -17,7 +17,7 @@ from typing import Any
 
 _REPO_ROOT = Path(__file__).resolve().parents[3]
 SESSIONS_ROOT = _REPO_ROOT / "data" / "sessions"
-MODEL_PATH = _REPO_ROOT / "models" / "kerb_yolo11n_plus_d3.pt"
+MODEL_PATH = _REPO_ROOT / "models" / "kerb_yolo11n_plus_d3_and_a5.pt"
 UPLOAD_CAP_SECONDS = 30.0
 
 

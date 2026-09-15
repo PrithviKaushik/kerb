@@ -44,8 +44,8 @@ export const SECTORS: Sector[] = [
       "Historical incident records preserving evidence, AI assessment and the steward's final review.",
   },
   {
-    id: "analysis",
-    label: "ANALYSIS",
+    id: "demo",
+    label: "DEMO",
     code: "SEC-06",
     description: "Run race footage through the KERB intelligence pipeline and inspect its returned candidates.",
   },
@@ -63,6 +63,6 @@ export const SECTOR_ICONS: Record<string, LucideIcon> = {
   evidence: Video,
   knowledge: BookOpen,
   reports: FileText,
-  analysis: Activity,
+  demo: Activity,
   incidents: ListChecks,
 };

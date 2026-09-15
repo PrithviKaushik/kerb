@@ -1,45 +1,81 @@
-# Supplied footage (never commit media)
+# ==========================================================
+# Kerb — repository ignore rules
+# Supplied footage, generated media, and internal working
+# data are NEVER committed. The only data/ kept in the repo
+# is the compact A5 demo evidence bundle (see the negation
+# rules at the bottom) so a fresh clone gets a working demo.
+# ==========================================================
+
+# ---- Supplied footage & generated media ---------------------
 data/raw/
+data/sessions/
+data/labeling/
+data/training/
+data/audit/frames/
+data/audit/contact_sheets/
+data/audit/perception_eval/
+data/audit/geometry/
+data/audit/diagnostics/
+runs/
+output/
+*.log
+kerb_training_dataset.zip
+data/audit/*.json
+
+# ---- Video / images -----------------------------------------
 *.mp4
 *.mkv
 *.mov
 *.avi
 *.webm
-
-# Python / venv
-.venv/
-__pycache__/
-*.pyc
-*.egg-info/
-
-# Models / output artifacts
-*.pt
-runs/
-output/
-*.log
-# KERB generated video artifacts
-data/raw/
-data/audit/frames/
-data/audit/contact_sheets/
-data/api/
-data/sessions/
-
-# Video files
-*.mp4
-*.mkv
-*.mov
-*.avi
-
-# Extracted image frames
 *.png
 *.jpg
 *.jpeg
 
-# Python
-__pycache__/
-*.py[cod]
+# ---- Python --------------------------------------------------
 .venv/
 venv/
+__pycache__/
+*.pyc
+*.py[cod]
+*.egg-info/
 
-# Environment
+# ---- ML weights ----------------------------------------------
+*.pt
+
+# ---- Environment / editor / OS -------------------------------
 .env
+.env.*
+.DS_Store
+.idea/
+.vscode/
+
+# ---- Internal agent & project docs (kept locally only) -------
+AGENTS.md
+Documents/
+
+# ==========================================================
+# Committed A5 demo evidence bundle
+#
+# /api/demo/* on a fresh clone serves these pre-computed
+# artifacts, so the demo works out of the box without supplied
+# footage or a model checkpoint. Experiment siblings under the
+# same trees stay ignored; only the exact bundle is re-included.
+
+# perception_tracking: keep only the a5_adapt bundle
+data/audit/perception_tracking/*
+!data/audit/perception_tracking/a5_adapt/
+!data/audit/perception_tracking/a5_adapt/a5_tracks.jsonl
+!data/audit/perception_tracking/a5_adapt/a5_tracks_metrics.json
+!data/audit/perception_tracking/a5_adapt/a5_bytetrack.browser.mp4
+
+# surface: keep only the a5_manual bundle + calibrated boundary + keyframes
+data/audit/surface/*
+!data/audit/surface/a5_manual/
+!data/audit/surface/a5_manual/a5_manual_spatial.jsonl
+!data/audit/surface/a5_manual/a5_manual_metrics.json
+!data/audit/surface/a5_manual/REPORT.md
+!data/audit/surface/a5_manual/a5_manual_visualization.browser.mp4
+!data/audit/surface/a5_manual_boundary.json
+!data/audit/surface/a5_manual_keyframes/
+!data/audit/surface/a5_manual_keyframes/*.png

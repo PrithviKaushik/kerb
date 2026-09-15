@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     },
   },
   description:
-    "Kerb fuses timing, telemetry and video into a single race-control surface for Formula 1 track-limit officiating.",
+    "KERB is a steward-assist system that finds and evidences potential track-limit incidents in race video — the AI finds the moment, the steward makes the decision.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

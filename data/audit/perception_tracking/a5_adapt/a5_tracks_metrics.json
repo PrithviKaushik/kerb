@@ -1,0 +1,17 @@
+{
+  "source": "data/raw/a5.mp4",
+  "model": "models/kerb_yolo11n_plus_d3_and_a5.pt",
+  "source_fps": 29.09329249125529,
+  "source_resolution": [
+    2304,
+    1440
+  ],
+  "frames_processed": 145,
+  "frames_with_tracks": 141,
+  "total_track_records": 141,
+  "unique_track_ids": 1,
+  "processing_duration_seconds": 12.027745799998229,
+  "end_to_end_fps": 12.055459303107433,
+  "detector_inference_seconds": 8.215042587951757,
+  "detector_inference_fps": 17.65054757143415
+}

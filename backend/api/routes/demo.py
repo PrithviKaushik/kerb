@@ -214,7 +214,7 @@ def demo_incident() -> dict:
 
 @router.get("/perception/video")
 def demo_perception_video() -> FileResponse:
-    if not TRACKING_VIDEO.is_file():
+    if not browser_playable(TRACKING_VIDEO).is_file():
         raise HTTPException(status_code=404, detail="Tracking video not found")
     return FileResponse(
         browser_playable(TRACKING_VIDEO),
@@ -226,7 +226,7 @@ def demo_perception_video() -> FileResponse:
 @router.get("/surface/video")
 def demo_surface_video() -> FileResponse:
     video = SURFACE_DIR / "a5_manual_visualization.mp4"
-    if not video.is_file():
+    if not browser_playable(video).is_file():
         raise HTTPException(status_code=404, detail="Surface visualization not found")
     return FileResponse(
         browser_playable(video),

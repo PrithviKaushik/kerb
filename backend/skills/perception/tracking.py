@@ -215,7 +215,7 @@ def track_video(
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run Kerb YOLO + ByteTrack perception.")
     parser.add_argument("--source", required=True, help="Input video path")
-    parser.add_argument("--model", default="models/kerb_yolo11n_plus_d3.pt")
+    parser.add_argument("--model", default="models/kerb_yolo11n_plus_d3_and_a5.pt")
     parser.add_argument("--output", required=True, help="Annotated output video path")
     parser.add_argument("--records", required=True, help="Tracking JSONL output path")
     parser.add_argument("--imgsz", type=int, default=640)

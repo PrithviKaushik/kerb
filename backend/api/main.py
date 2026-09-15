@@ -31,9 +31,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-Path("data/api/frames").mkdir(parents=True, exist_ok=True)
+_REPO_ROOT = Path(__file__).resolve().parents[3]
+FRAMES_ROOT = _REPO_ROOT / "data" / "api" / "frames"
+FRAMES_ROOT.mkdir(parents=True, exist_ok=True)
 ensure_sessions_root()
-app.mount("/api/video/frames", StaticFiles(directory="data/api/frames"), name="extracted-frames")
+app.mount("/api/video/frames", StaticFiles(directory=FRAMES_ROOT), name="extracted-frames")
 
 app.include_router(analysis_router)
 app.include_router(demo_router)
@@ -98,24 +100,19 @@ async def extract_frames_api(
         shutil.copyfileobj(file.file, temp)
 
     output_name = Path(file.filename or "video").stem
-    output_dir = (
-        Path("data")
-        / "api"
-        / "frames"
-        / output_name
-    )
+    output_dir = FRAMES_ROOT / output_name
     output_dir.mkdir(parents=True, exist_ok=True)
 
     try:
         source = probe_video(temp_path)
 
         result = extract_frames(
-    temp_path,
-    output_dir,
-    fps=fps,
-    max_frames=max_frames if max_frames and max_frames > 0 else None,
-    preset=preset,
-)
+            temp_path,
+            output_dir,
+            fps=fps,
+            max_frames=max_frames if max_frames and max_frames > 0 else None,
+            preset=preset,
+        )
         return {
             "video": file.filename,
             "source_fps": source.fps,

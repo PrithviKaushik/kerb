@@ -61,10 +61,12 @@ def cached_video_uri(route: str, src: Path) -> str | None:
 
     The browser may have cached an earlier (pre-transcode, unplayable) response
     for the same bare path; embedding the mtime forces a fresh fetch whenever
-    the file changes.
+    the file changes. Falls back to the browser copy when the source is absent
+    (the committed A5 demo bundle ships the browser copy only), so a fresh
+    clone still serves video without the original footage.
     """
-    if not src.is_file():
-        return None
     playable = browser_playable(src)
+    if not playable.is_file():
+        return None
     stamp = int(playable.stat().st_mtime)
     return f"{route}?m={stamp}"
